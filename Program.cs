@@ -47,7 +47,9 @@ namespace DanielChallenge {
 				_people.Add(person = new Person(name));
 			}
 
-			person.AddTransaction(new Transaction(storeName, books * pricePerBook * (1m + tax * 0.01m), books));
+			Decimal cost = books * pricePerBook * (1m + tax * 0.01m);
+			person.AddTransaction(new Transaction(storeName, cost, books));
+			Console.WriteLine($"Total: ${cost:0.00}");
 
 			return true;
 		}
@@ -77,7 +79,8 @@ namespace DanielChallenge {
 		}
 
 		private static EInputRoute GetBaseInput() {
-			Console.WriteLine($"Welcome to {Environment.UserName}'s book store, what would you like to do today?{Environment.NewLine}Your options are: purchase | history");
+			Console.WriteLine(
+				$"Welcome to {Environment.UserName}'s book store, what would you like to do today?{Environment.NewLine}Your options are: purchase | history");
 			String? input = Console.ReadLine();
 			return input switch {
 				"purchase" => EInputRoute.Purchase,
